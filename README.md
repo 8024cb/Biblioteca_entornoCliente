@@ -18,7 +18,7 @@ Copia aquí el enunciado de tu ficha:
 
 ## Por qué uso Map y Set
 
-Explícalo en 2 o 3 líneas, con tus palabras (Hito 3).
+Los uso porque el Map me deja guardar por géneros los libros y el set impide repeticiones, también el map es más rápido a la hora de buscar datos relevantes que se buscan.
 
 ## Diario
 
