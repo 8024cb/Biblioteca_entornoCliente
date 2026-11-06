@@ -103,3 +103,63 @@ prueba("las consultas no modifican las listas de datos.js", () => {
   igual(libros[0][L_ID], 1);
   igual(prestamos.length, 12);
 });
+
+prueba("Regla: un socio con 2 sin devolver puede llevarse el tercero", () => {
+  igual(prestamosSinDevolver(prestamos, 1), 2);
+  const nueva = prestar(prestamos, 1, 4, 30, () => 13);
+  igual(nueva.length, prestamos.length + 1);
+  igual(nueva[nueva.length - 1], [13, 1, 4, 30, false]);
+});
+prueba("Regla: un socio con 3 sin devolver no puede llevarse el cuarto", () => {
+  const con3 = prestar(prestamos, 1, 4, 30, () => 13);
+  lanzaError(() => prestar(con3, 1, 9, 31, () => 14), "Límite de préstamos alcanzado");
+});
+prueba("Regla: devolver un libro libera un hueco", () => {
+  const con3 = prestar(prestamos, 1, 4, 30, () => 13);
+  const devuelto = con3.map((p) => {
+    let fila = p;
+    if (p[P_ID] === 2) {
+      fila = [p[P_ID], p[P_SOCIO], p[P_LIBRO], p[P_DIA], true];
+    }
+    return fila;
+  });
+  igual(prestar(devuelto, 1, 9, 31, () => 14).length, con3.length + 1);
+});
+
+// ---------- Altas y bajas ----------
+prueba("prestar falla si el socio no existe", () => {
+  lanzaError(() => prestar(prestamos, 99, 4, 30, () => 13), "Socio no encontrado");
+});
+prueba("prestar falla si el libro no existe", () => {
+  lanzaError(() => prestar(prestamos, 1, 99, 30, () => 13), "Libro no encontrado");
+});
+prueba("prestar falla con un día no válido", () => {
+  lanzaError(() => prestar(prestamos, 1, 4, 61, () => 13), "Día no válido");
+  lanzaError(() => prestar(prestamos, 1, 4, 2.5, () => 13), "Día no válido");
+});
+prueba("prestar falla si el libro ya está prestado", () => {
+  lanzaError(() => prestar(prestamos, 6, 5, 30, () => 13), "Libro no disponible");
+});
+prueba("un intento fallido de prestar no gasta ningún id", () => {
+  const siguiente = crearGeneradorId(12);
+  lanzaError(() => prestar(prestamos, 99, 4, 30, siguiente), "Socio no encontrado");
+  igual(siguiente(), 13);
+});
+prueba("prestar no modifica la lista que recibe", () => {
+  prestar(prestamos, 1, 4, 30, () => 13);
+  igual(prestamos.length, 12);
+});
+prueba("borrarPrestamo devuelve una lista nueva sin esa fila", () => {
+  const sin = borrarPrestamo(prestamos, 3);
+  igual(sin.length, 11);
+  igual(sin.map((p) => p[P_ID]).includes(3), false);
+  igual(prestamos.length, 12);
+});
+prueba("borrarPrestamo falla si el id no existe", () => {
+  lanzaError(() => borrarPrestamo(prestamos, 99), "Préstamo no encontrado");
+});
+
+prueba("totalFianzasPrestados usa la lista que recibe", () => {
+  const unPrestamo = [[1, 1, 1, 5, false], [2, 1, 2, 6, true]];
+  casiIgual(totalFianzasPrestados(unPrestamo), 2.5);
+});

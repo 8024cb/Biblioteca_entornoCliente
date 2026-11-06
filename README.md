@@ -27,7 +27,9 @@ Una entrada al final de cada sesión: fecha, qué has hecho y qué te ha costado
 - 03/11/2026 · Hecho: Consultas y pruebas de consultas
   Me ha costado: gestionar los arrays 
   He preguntado: ...
-- 04/11/2026 . Hecho: Consultas y pruebas usando maps 
+- 04/11/2026 · Hecho: Consultas y pruebas usando maps
+- 06/11/2026 · Hecho: Arreglo de la función totalFianzasPrestados y realización de las reglas, también creado el menú del main y realizado pruebas sobre las reglas
+  Me ha costado: realizar las reglas.
 
 ## Uso de IA
 
@@ -37,7 +39,7 @@ Si no la has usado, escribe «No he usado IA».
 - Para qué la usé (explicar, depurar, generar código): explicar fallos de mi software, arreglo de software y ayuda para generar las pruebas
 - Qué le pedí (resumen): Le pedi que me esplicara como hacer las funciones mas complejas y que me recomendase metodos de pruebas para las consultas usando informaciuon del archivo datos y consultas.
 - Qué cambié yo y por qué: Cambie los metodos que me daba que no comprendia o que no habiamos dado.
-- Qué he aprendido: He aprendido a usar la funcion localeCompare(b, "es") que compara dos textos siguiendo las normas del idioma seleccionado, Tambien me ha ayudado a comprender mejor los maps.
+- Qué he aprendido: He aprendido a usar la funcion localeCompare(b, "es") que compara dos textos siguiendo las normas del idioma seleccionado, Tambien me ha ayudado a comprender mejor los maps y a entender como funcionaban los errores (estaba bastante confundido con ellos).
 
 ## Git (opcional)
 
