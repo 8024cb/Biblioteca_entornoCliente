@@ -29,14 +29,14 @@ function prestamosSinDevolver(listaPrestamos, idSocio) {
  * @param {function(): number} generarId Generador de ids
  * @returns {Array[]} Lista nueva con el préstamo añadido
  */
-function prestar(listaPrestamos, idSocio, idLibro, dia, generarId) {
+function prestar(listaPrestamos, idSocio, idLibro, dia, generarId, maximolibros=MAX_PRESTAMOS) {
   if (buscarSocio(idSocio) === undefined) throw new Error("Socio no encontrado");
   if (buscarLibro(idLibro) === undefined) throw new Error("Libro no encontrado");
   if (!Number.isInteger(dia) || dia < 1 || dia > 60) throw new Error("Día no válido");
   if (listaPrestamos.some((p) => p[P_LIBRO] === idLibro && !p[P_DEVUELTO])) {
     throw new Error("Libro no disponible");
   }
-  if (prestamosSinDevolver(listaPrestamos, idSocio) >= MAX_PRESTAMOS) {
+  if (prestamosSinDevolver(listaPrestamos, idSocio) >= maximolibros) {
     throw new Error("Límite de préstamos alcanzado");
   }
   return [...listaPrestamos, [generarId(), idSocio, idLibro, dia, false]];
@@ -54,3 +54,5 @@ function borrarPrestamo(listaPrestamos, idPrestamo) {
   }
   return listaPrestamos.filter((p) => p[P_ID] !== idPrestamo);
 }
+
+//prestar(prestamos,6,1,10, () => 13)
